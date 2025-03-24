@@ -2,20 +2,33 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 )
 
 func main() {
-	xy := 4
+	xy := 8
 	result := ""
-	array := []string{" ", "#"}
+	value := " "
 
 	for y := 0; y < xy; y++ {
+		if y%2 == 0 {
+			for x := 0; x < xy; x++ {
+				if x%2 == 0 {
+					value = " "
+				} else {
+					value = "#"
+				}
+				result += value
 
-		for x := 0; x < xy; x++ {
-			key := rand.Intn(2)
-			get_value := array[key]
-			result += get_value
+			}
+		} else {
+			for x := 0; x < xy; x++ {
+				if x%2 != 0 {
+					value = " "
+				} else {
+					value = "#"
+				}
+				result += value
+			}
 		}
 
 		result += "\n"
