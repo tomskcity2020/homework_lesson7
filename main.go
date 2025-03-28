@@ -11,6 +11,7 @@ import (
 
 func main() {
 	// принимаем int поэтому делаем через Scanln (ps учесть в будущем: есть нюансы связанные с пробелом)
+	// ВНИМАНИЕ! Scanln лучше не использовать для надежной валидации!! стремно работает с буфером, с пустым - непредсказуемо. Лучше использовать bufio
 
 	// варианты ввода:
 	// + 1) не ввел ничего и нажал enter (отсекается проверкой на int, однако нужно обрабатывать и дублировать запрос на ввод)
@@ -29,7 +30,6 @@ func main() {
 start:
 	fmt.Println("Введите длину (в клетках) шахматной доски: ")
 
-	// ВНИМАНИЕ! Scanln лучше не использовать для надежной валидации!! стремно работает с буфером, с пустым - непредсказуемо. Лучше использовать bufio
 	reader := bufio.NewReader(os.Stdin)
 	input, _ := reader.ReadString('\n')
 	input = strings.TrimSpace(input) // если не уберем \n , то не отработает проверка на пустой ввод, а также не сработает strconv.Atoi, получим ошибку, так как число будет с \n
@@ -66,34 +66,18 @@ start:
 		goto start
 	}
 
-	result := ""
-	value := " "
-
 	for y := 0; y < xy; y++ {
-		if y%2 == 0 {
-			for x := 0; x < xy; x++ {
-				if x%2 == 0 {
-					value = " "
-				} else {
-					value = "#"
-				}
-				result += value
+		for x := 0; x < xy; x++ {
+			if (x+y)%2 == 0 {
+				fmt.Printf("□")
+			} else {
+				fmt.Printf("■")
+			}
 
-			}
-		} else {
-			for x := 0; x < xy; x++ {
-				if x%2 != 0 {
-					value = " "
-				} else {
-					value = "#"
-				}
-				result += value
-			}
 		}
 
-		result += "\n"
+		fmt.Printf("\n")
 
 	}
 
-	fmt.Println(result)
 }
